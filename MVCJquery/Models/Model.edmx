@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MVCTutorialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblDepartament">
+          <Key>
+            <PropertyRef Name="DepartamentId" />
+          </Key>
+          <Property Name="DepartamentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartamentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="DepartamentId" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblStudent_tblDepartament">
+          <End Role="tblDepartament" Type="Self.tblDepartament" Multiplicity="0..1" />
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartament">
+              <PropertyRef Name="DepartamentId" />
+            </Principal>
+            <Dependent Role="tblStudent">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCTutorialModelStoreContainer">
+          <EntitySet Name="tblDepartament" EntityType="Self.tblDepartament" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudent" EntityType="Self.tblStudent" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblStudent_tblDepartament" Association="Self.FK_tblStudent_tblDepartament">
+            <End Role="tblDepartament" EntitySet="tblDepartament" />
+            <End Role="tblStudent" EntitySet="tblStudent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCTutorialModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblDepartament">
+          <Key>
+            <PropertyRef Name="DepartamentId" />
+          </Key>
+          <Property Name="DepartamentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartamentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblDepartament" FromRole="tblDepartament" ToRole="tblStudent" />
+        </EntityType>
+        <EntityType Name="tblStudent">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="DepartamentId" Type="Int32" />
+          <NavigationProperty Name="tblDepartament" Relationship="Self.FK_tblStudent_tblDepartament" FromRole="tblStudent" ToRole="tblDepartament" />
+        </EntityType>
+        <Association Name="FK_tblStudent_tblDepartament">
+          <End Role="tblDepartament" Type="Self.tblDepartament" Multiplicity="0..1" />
+          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartament">
+              <PropertyRef Name="DepartamentId" />
+            </Principal>
+            <Dependent Role="tblStudent">
+              <PropertyRef Name="DepartamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCTutorialEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDepartaments" EntityType="Self.tblDepartament" />
+          <EntitySet Name="tblStudents" EntityType="Self.tblStudent" />
+          <AssociationSet Name="FK_tblStudent_tblDepartament" Association="Self.FK_tblStudent_tblDepartament">
+            <End Role="tblDepartament" EntitySet="tblDepartaments" />
+            <End Role="tblStudent" EntitySet="tblStudents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCTutorialModelStoreContainer" CdmEntityContainer="MVCTutorialEntities">
+          <EntitySetMapping Name="tblDepartaments">
+            <EntityTypeMapping TypeName="MVCTutorialModel.tblDepartament">
+              <MappingFragment StoreEntitySet="tblDepartament">
+                <ScalarProperty Name="DepartamentId" ColumnName="DepartamentId" />
+                <ScalarProperty Name="DepartamentName" ColumnName="DepartamentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudents">
+            <EntityTypeMapping TypeName="MVCTutorialModel.tblStudent">
+              <MappingFragment StoreEntitySet="tblStudent">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="DepartamentId" ColumnName="DepartamentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
