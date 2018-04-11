@@ -15,13 +15,44 @@
                 <th>Email</th>
                 <th>Departament</th>
                 <th>Action(Edit)</th>
-                <th>Action(Delete)</th>                
+                <th>Action(Delete)</th>
             </tr>
         </thead>
         <tbody id="SetStudentList">
             <tr id="LoadingStatus" style="color:red"></tr>
         </tbody>
     </table>
+
+    @*Create a PopUp modal with registration form for add or edit Student*@
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="form">
+                        <fieldset id="SubmitForm">
+                            @Html.HiddenFor(m => m.StudentId, new { @id = "StuId" })
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.StudentName, new { @id = "StuName", @class = "form-control", @placeholder = "Name" })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Email, new { @id = "StuEmail", @class = "form-control", @placeholder = "Email" })
+                            </div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(m => m.DepartamentId, ViewBag.ListOfDepartament as SelectList, "--Select Dept--", new { @id = "DropDown", @class = "form-control" })
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="btn btn-block btn-danger" id="SabeStudentRecord">Save</a>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -35,8 +66,8 @@
                 "<td>" + StudentList[i].StudentName + "</td>" +
                 "<td>" + StudentList[i].Email + "</td>" +
                 "<td>" + StudentList[i].DepartamentName + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord()'><span class='glyphicon glyphicon-edit'></span></a>"+"</td>"+
-                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord()'><span class='glyphicon glyphicon-trash'></span></a>"+ "</td>" +
+                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord()'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord()'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                 "/tr>";
 
             setData.append(Data);
