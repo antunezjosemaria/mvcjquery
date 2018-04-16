@@ -27,6 +27,8 @@ namespace MVCJquery.Controllers
                 DepartamentName = x.tblDepartament.DepartamentName
             }).ToList();
 
+            //Prueba 123
+
             return Json(StudentList, JsonRequestBehavior.AllowGet);
         }
     }
