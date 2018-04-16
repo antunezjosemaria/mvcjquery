@@ -9,6 +9,7 @@ namespace MVCJquery.Controllers
     {
         MVCTutorialEntities db = new MVCTutorialEntities();
 
+
         public ActionResult Index()
         {
             return View();
