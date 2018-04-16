@@ -88,6 +88,5 @@ C:\Jose\mvcjquery\MVCJquery\bin\Microsoft.AI.WindowsServer.xml
 C:\Jose\mvcjquery\MVCJquery\bin\Microsoft.AI.Web.xml
 C:\Jose\mvcjquery\MVCJquery\obj\Debug\MVCJquery.csprojResolveAssemblyReference.cache
 C:\Jose\mvcjquery\MVCJquery\obj\Debug\MVCJquery.csproj.CoreCompileInputs.cache
-C:\Jose\mvcjquery\MVCJquery\obj\Debug\MVCJquery.csproj.CopyComplete
 C:\Jose\mvcjquery\MVCJquery\obj\Debug\MVCJquery.dll
 C:\Jose\mvcjquery\MVCJquery\obj\Debug\MVCJquery.pdb
