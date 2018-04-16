@@ -9,9 +9,11 @@ namespace MVCJquery.Controllers
     {
         MVCTutorialEntities db = new MVCTutorialEntities();
 
-
         public ActionResult Index()
         {
+            List<tblDepartament> DepList = db.tblDepartaments.ToList();
+            ViewBag.ListOfDepartament = new SelectList(DepList, "DepartamentId", "DepartamentName");
+
             return View();
         }
 

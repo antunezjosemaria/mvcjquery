@@ -42,7 +42,7 @@
                                 @Html.TextBoxFor(m => m.Email, new { @id = "StuEmail", @class = "form-control", @placeholder = "Email" })
                             </div>
                             <div class="form-group">
-                                @*@Html.DropDownListFor(m => m.DepartamentId, ViewBag.ListOfDepartament as SelectList, "--Select Dept--", new { @id = "DropDown", @class = "form-control" })*@
+                                @Html.DropDownListFor(m => m.DepartamentId, ViewBag.ListOfDepartament as SelectList, "--Select Dept--", new { @id = "DropDown", @class = "form-control" })
                             </div>
                             <div class="form-group">
                                 <a href="#" class="btn btn-block btn-danger" id="SabeStudentRecord">Save</a>
@@ -73,5 +73,12 @@
             setData.append(Data);
             $("#LoadingStatus").html(" ")
         }
+    }
+
+    //Show the PopUp Modal for add new Student 
+    function AddNewStudent(StudentId) {
+        $("#form")[0].reset();
+        $("#ModalTitle").html("Add New Student");
+        $("#MyModal").modal();
     }
 </script>
