@@ -8,6 +8,7 @@ namespace MVCJquery.Controllers
     public class HomeController : Controller
     {
         MVCTutorialEntities db = new MVCTutorialEntities();
+
         public ActionResult Index()
         {
             return View();
