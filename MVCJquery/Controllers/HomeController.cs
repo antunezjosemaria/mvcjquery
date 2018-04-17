@@ -1,4 +1,5 @@
 ﻿using MVCJquery.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -32,6 +33,18 @@ namespace MVCJquery.Controllers
             //Otros cambios
 
             return Json(StudentList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetStudentById(int StudentId)
+        {
+            tblStudent model = db.tblStudents.Where(x => x.StudentId == StudentId).SingleOrDefault();
+            string value = string.Empty;
+            value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+
+            return Json(value, JsonRequestBehavior.AllowGet);
         }
     }
 }

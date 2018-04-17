@@ -66,8 +66,8 @@
                 "<td>" + StudentList[i].StudentName + "</td>" +
                 "<td>" + StudentList[i].Email + "</td>" +
                 "<td>" + StudentList[i].DepartamentName + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord()'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord()'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + StudentList[i].StudentId +")'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord(" + StudentList[i].StudentId +")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                 "/tr>";
 
             setData.append(Data);
@@ -80,5 +80,23 @@
         $("#form")[0].reset();
         $("#ModalTitle").html("Add New Student");
         $("#MyModal").modal();
+    }
+
+    //Show the PopUp Modal for edir Student Record
+    function EditStudentRecord(StudentId) {
+        var url = "/Home/GetStudentById?StudentId=" + StudentId;
+        $("#ModalTitle").html("Update Student Record");
+        $("#MyModal").modal();
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                var obj = JSON.parse(data);
+                $("#StuId").val(obj.StudentId);
+                $("#StuName").val(obj.StudentName);
+                $("#StuEmail").val(obj.Email);
+                $("#DropDown option:selected").val(obj.tblDepartament.DepartamentName);
+            }
+        })
     }
 </script>
