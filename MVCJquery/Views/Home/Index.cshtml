@@ -88,9 +88,9 @@
         $("#ModalTitle").html("Update Student Record");
         $("#MyModal").modal();
         $.ajax({
-            type = "GET",
-            url = url,
-            succes = function (data) {
+            type: "GET",
+            url: url,
+            success: function (data) {
                 var obj = JSON.parse(data);
                 $("#StuId").val(obj.StudentId);
                 $("#StuName").val(obj.StudentName);
