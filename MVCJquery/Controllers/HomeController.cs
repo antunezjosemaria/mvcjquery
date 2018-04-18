@@ -84,5 +84,19 @@ namespace MVCJquery.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult DeleteStudentRecord(int StudentId)
+        {
+            bool result = false;
+
+            tblStudent Stu = db.tblStudents.SingleOrDefault(x => x.IsDelete == false && x.StudentId == StudentId);
+            if (Stu != null)
+            {
+                Stu.IsDelete = true;
+                db.SaveChanges();
+                result = true;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

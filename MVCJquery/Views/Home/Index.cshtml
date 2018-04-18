@@ -1,6 +1,6 @@
 ﻿@model MVCJquery.Models.StudentViewModel
-@{
-    Layout = null;
+@{ 
+     Layout = null;
 }
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -53,6 +53,26 @@
             </div>
         </div>
     </div>
+
+    @*Create a PopUp Modal for DeleteConfirmation*@
+
+    <div class="modal fade" id="DeleteConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4>Delete Student Record</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you soure? You want to delete this record.</h4>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-primary" data-dismiss="modal">Cancel</a>
+                    <a href="#" class="btn btn-primary" onclick="ConfirmarDelete()">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -66,8 +86,8 @@
                 "<td>" + StudentList[i].StudentName + "</td>" +
                 "<td>" + StudentList[i].Email + "</td>" +
                 "<td>" + StudentList[i].DepartamentName + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + StudentList[i].StudentId +")'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord(" + StudentList[i].StudentId +")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditStudentRecord(" + StudentList[i].StudentId + ")'><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn- danger' onclick='DeleteStudentRecord(" + StudentList[i].StudentId + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                 "/tr>";
 
             setData.append(Data);
@@ -75,7 +95,7 @@
         }
     }
 
-    //Show the PopUp Modal for add new Student 
+    //Show the PopUp Modal for add new Student
     function AddNewStudent(StudentId) {
         $("#form")[0].reset();
         $("#ModalTitle").html("Add New Student");
@@ -114,4 +134,22 @@
             }
         })
     })
+
+    //Show de PopUp Modal for DeleteConfermation 
+    function DeleteStudentRecord(StudentId) {
+        $("#StuId").val(StudentId);
+        $("#DeleteConfirmation").modal("show");
+    }
+
+    function ConfirmarDelete() {
+        var StuId = $("#StuId").val();
+        $.ajax({
+            type: "POST",
+            url: "/Home/DeleteStudentRecord?StudentId=" + StuId,
+            success: function (result) {                
+                $("#DeleteConfirmation").modal("hide");
+                $(".row_" + StuId).remove();
+            }       
+        })
+    }
 </script>
