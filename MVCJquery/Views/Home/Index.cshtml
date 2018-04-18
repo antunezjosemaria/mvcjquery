@@ -99,4 +99,18 @@
             }
         })
     }
+
+    $("#SabeStudentRecord").click(function () {
+        var data = $("#SubmitForm").serialize();
+        $.ajax({
+            type: "Post",
+            url: "/Home/SaveDataInDatabase",
+            data: data,
+            success: function (result) {
+                alert("Success!...");
+                window.location.href = "/Home/index";
+                $("#MyModal").modal("hide");
+            }
+        })
+    })
 </script>

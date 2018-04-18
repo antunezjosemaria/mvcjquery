@@ -1,5 +1,6 @@
 ﻿using MVCJquery.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -45,6 +46,43 @@ namespace MVCJquery.Controllers
             });
 
             return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SaveDataInDatabase(StudentViewModel model)
+        {
+            var result = false;
+
+            try
+
+            {
+                if (model.StudentId > 0)
+                {
+                    tblStudent Stu = db.tblStudents.SingleOrDefault(x => x.IsDelete == false && x.StudentId == model.StudentId);
+                    Stu.StudentName = model.StudentName;
+                    Stu.Email = model.Email;
+                    Stu.DepartamentId = model.DepartamentId;
+                    db.SaveChanges();
+                    result = true;
+                }
+                else
+                {
+                    tblStudent Stu = new tblStudent();
+                    Stu.StudentName = model.StudentName;
+                    Stu.Email = model.Email;
+                    Stu.DepartamentId = model.DepartamentId;
+                    Stu.IsDelete = false;
+                    db.tblStudents.Add(Stu);
+                    db.SaveChanges();
+                    result = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
